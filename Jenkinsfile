@@ -14,12 +14,15 @@ pipeline {
             }
         }
     
-    stage('Load Images into Minikube') {
+  stage('Pull Docker Image') {
       steps {
-        sh 'minikube image load ibrahim372/fr:latest'
-        sh 'minikube image load ibrahim372/bk:latest'
+        script {
+          sh 'docker pull ibrahim372/bk:latest'
+          sh 'docker pull ibrahima372/fr:latest'
+        }
       }
     }
+    
 
     stage('Deploy with Terraform') {
       steps {
