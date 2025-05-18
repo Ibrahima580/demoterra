@@ -158,7 +158,7 @@ resource "kubernetes_secret" "postgres_credentials" {
 
   type = "Opaque"
 
-  string_data = {
+  data = {
     POSTGRES_USER     = "odc"
     POSTGRES_PASSWORD = "odc123"
     POSTGRES_DB       = "odcdb"
