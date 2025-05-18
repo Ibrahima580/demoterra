@@ -1,28 +1,29 @@
 pipeline {
   agent any
-  
+
   environment {
-        TF_IN_AUTOMATION = "true"
-        KUBECONFIG = "${HOME}/.kube/config"
-    }
+    TF_IN_AUTOMATION = "true"
+    KUBECONFIG = "${HOME}/.kube/config"
+  }
+
+  tools {
+    terraform 'Terraform'
+  }
 
   stages {
 
-    stage('Cloner le dépôt') {
-            steps {
-                 checkout scm
-            }
-        }
-    
-  stage('Pull Docker Image') {
+    stage('Checkout Repository') {
       steps {
-        script {
-          sh 'docker pull ibrahim372/bk:latest'
-          sh 'docker pull ibrahima372/fr:latest'
-        }
+        checkout scm
       }
     }
-    
+
+    stage('Pull Images from Docker Hub') {
+      steps {
+        sh 'docker pull ibrahim372/fr:latest'
+        sh 'docker pull ibrahim372/bk:latest'
+      }
+    }
 
     stage('Deploy with Terraform') {
       steps {
@@ -33,5 +34,13 @@ pipeline {
       }
     }
   }
-}
 
+  post {
+    success {
+      echo "✅ Déploiement réussi via Terraform et images récupérées"
+    }
+    failure {
+      echo "❌ Échec du déploiement"
+    }
+  }
+}
