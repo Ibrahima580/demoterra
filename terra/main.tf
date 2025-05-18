@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "kubernetes" {
-  config_path = "~/.kube/config" # Utilise la config Minikube locale
+  config_path = "/var/lib/jenkins/.kube/config" # Utilise la config Minikube locale
 }
 
 # FRONTEND
