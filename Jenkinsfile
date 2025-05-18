@@ -8,6 +8,12 @@ pipeline {
 
   stages {
 
+    stage('Cloner le dépôt') {
+            steps {
+                 checkout scm
+            }
+        }
+    
     stage('Load Images into Minikube') {
       steps {
         sh 'minikube image load ibrahim372/fr:latest'
