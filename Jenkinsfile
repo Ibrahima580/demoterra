@@ -27,7 +27,7 @@ pipeline {
 
     stage('Deploy with Terraform') {
       steps {
-        dir('terra') {
+        dir('terraform') {
           sh 'sudo terraform init'
           sh 'sudo terraform apply -auto-approve'
         }
